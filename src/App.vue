@@ -9,7 +9,9 @@
             </div>
             <Button @click="reset" :label="labelForReset" />
         </div>
-        <div class="flex w-96 m-auto flex-row items-center justify-center pb-8 gap-1">
+        <div
+            class="flex w-96 m-auto flex-row items-center justify-center pb-8 gap-1"
+        >
             <input
                 class="bg-gray-100 px-3 py-3 rounded text-xl font-semibold border-gray-500 border-2 w-72"
                 type="text"
@@ -19,8 +21,18 @@
             <Button @click="addBook" :label="add" />
         </div>
         <ul>
-            <li v-for="book in booklists" :key="book" class="text-xl font-bold">
+            <li
+                v-for="(book, index) in booklists"
+                :key="index"
+                class="text-xl font-bold"
+            >
                 {{ book }}
+                <button
+                    @click="removeBook(index)"
+                    class="px-3 py-2 font-medium bg-red-700 text-white m-1 rounded hover:bg-red-900"
+                >
+                    Delete
+                </button>
             </li>
         </ul>
     </div>
@@ -59,8 +71,10 @@ export default {
             this.count = 0;
         },
         addBook() {
-            console.log(this.bookName);
             this.$store.dispatch("addBook", this.bookName);
+        },
+        removeBook(index) {
+            this.$store.dispatch("removeBook", index);
         },
     },
 };
