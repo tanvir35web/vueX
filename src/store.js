@@ -26,5 +26,8 @@ export default createStore({
     },
     getters: {
         // Define getters to access state
+        bookLength(state) {
+            return state.booklists.length;
+        }
     },
 });

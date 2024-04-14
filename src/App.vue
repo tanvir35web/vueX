@@ -9,7 +9,8 @@
             </div>
             <Button @click="reset" :label="labelForReset" />
         </div>
-        <div
+        <p class="text-2xl font-semibold mb-8">The total length of book list : {{ bookLength }}</p>
+        <form
             class="flex w-96 m-auto flex-row items-center justify-center pb-8 gap-1"
         >
             <input
@@ -18,8 +19,8 @@
                 v-model="bookName"
                 placeholder="Add a book..."
             />
-            <Button @click="addBook" :label="add" />
-        </div>
+            <Button @click.prevent="addBook" :label="add" />
+        </form>
         <ul>
             <li
                 v-for="(book, index) in booklists"
@@ -40,6 +41,7 @@
 
 <script>
 import Button from "./components/Button.vue";
+import {mapActions, mapGetters, mapState} from "vuex"
 
 export default {
     components: {
@@ -56,9 +58,18 @@ export default {
         };
     },
     computed: {
-        booklists() {
-            return this.$store.state.booklists;
-        },
+        ...mapState({
+            booklists: "booklists",
+        }),
+
+        ...mapGetters({
+            bookLength: "bookLength",
+        })
+
+        // ,
+        // booklists() {
+        //     return this.$store.state.booklists;
+        // },
     },
     methods: {
         increment() {
@@ -72,10 +83,16 @@ export default {
         },
         addBook() {
             this.$store.dispatch("addBook", this.bookName);
+            this.bookName = "";
         },
-        removeBook(index) {
-            this.$store.dispatch("removeBook", index);
-        },
+
+        // removeBook(index) {
+        //     this.$store.dispatch("removeBook", index);
+        // },
+
+        ...mapActions({
+            removeBook: "removeBook",
+        })
     },
 };
 </script>
