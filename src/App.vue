@@ -49,7 +49,6 @@ export default {
     },
     data() {
         return {
-            count: 0,
             labelForIncrement: "Increment",
             labelForDecrement: "Decrement",
             labelForReset: "Reset",
@@ -60,6 +59,7 @@ export default {
     computed: {
         ...mapState({
             booklists: "booklists",
+            count: "count",
         }),
 
         ...mapGetters({
@@ -72,15 +72,7 @@ export default {
         // },
     },
     methods: {
-        increment() {
-            this.count += 1;
-        },
-        decrement() {
-            this.count -= 1;
-        },
-        reset() {
-            this.count = 0;
-        },
+        
         addBook() {
             this.$store.dispatch("addBook", this.bookName);
             this.bookName = "";
@@ -92,6 +84,9 @@ export default {
 
         ...mapActions({
             removeBook: "removeBook",
+            increment: "increment",
+            decrement: "decrement",
+            reset: "reset",
         })
     },
 };

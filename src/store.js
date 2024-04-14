@@ -3,6 +3,7 @@ import { createStore } from "vuex";
 export default createStore({
     state() {
         return {
+            count: 0,
             booklists: ["Book 1", "Book 2", "Book 3", "Book 4", "Book 5"],
         };
     },
@@ -17,6 +18,16 @@ export default createStore({
     },
     actions: {
         // Define actions to commit mutations
+        increment() {
+            this.state.count += 1;
+        },
+        decrement() {
+            this.state.count -= 1;
+        },
+        reset() {
+            this.state.count = 0;
+        },
+
         addBook({ commit }, data) {
             commit("ADD_BOOK", data);
         },
@@ -24,6 +35,7 @@ export default createStore({
             commit("REMOVE_BOOK", index);
         },
     },
+    
     getters: {
         // Define getters to access state
         bookLength(state) {
